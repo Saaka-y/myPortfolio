@@ -25,7 +25,7 @@ export function Section({ id, children }) {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }} // amount: 発火位置
-        className={`flex flex-col justify-center items-center text-center border py-12`}>
+        className={`flex flex-col justify-center items-center text-center py-12`}>
         <p className="capitalize text-xl md:text-2xl pb-10 md:pb-16 lg:pb-20">{id}</p>
         <div className="flex flex-col gap-2">
           {children}
@@ -42,7 +42,7 @@ export const childVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1,
+      duration: 1.5,
       ease: [0.42, 0, 0.58, 1], 
     },
   },
