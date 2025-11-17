@@ -1,21 +1,50 @@
+// Scroll.jsx
+import { motion } from "motion/react";
+import { Element } from "react-scroll";
 
-// refered to https://github.com/fisshy/react-scroll/blob/master/examples/_next-js/page.tsx
-'use client';
+export function Section({ id, children }) {
 
-import {
-  Link,
-  DirectLink,
-  Element,
-  Events,
-  animateScroll,
-  scrollSpy,
-  scroller
-} from "react-scroll";
+  const containerVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.3,
+      ease: [0.42, 0, 0.58, 1],
+      duration: 1 
+    }
+  },
+};
 
-
-export function Scroll() {
-  
   return (
-   <div></div>
+    <Element name={id}>
+      <motion.div
+        id={id}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.6 }} // amount: 発火位置
+        className={`flex flex-col gap-3 justify-center items-center text-center border py-12`}>
+        <p className="capitalize pb-2">{id}</p>
+        <div className="flex flex-col gap-2">
+          {children}
+        </div>
+      </motion.div>
+    </Element>
   );
 }
+
+// animation variable for children
+export const childVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      ease: [0.42, 0, 0.58, 1], 
+    },
+  },
+};
+

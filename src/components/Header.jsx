@@ -5,16 +5,17 @@ export function Header({ isShrunk, setIsShrunk }) {
 
   // ナビクリック時
   const handleNavClick = () => {
-    setIsShrunk(true);
+    if (isShrunk) { return; }
+    else { setIsShrunk(true); }
   };
 
   return (
     <div
       className={`
         ${isShrunk
-          ? "h-20 md:h-30 md:justify-end md:items-end"
-          : "h-screen"
-        } fixed top-0 w-full flex justify-center items-center bg-gray-700/40 transition-all duration-800 ease-in-out`}
+          ? "h-20 md:h-30 md:justify-end md:items-end bg-gray-700/70"
+          : "h-screen bg-gray-700/40"
+        } fixed top-0 w-full flex justify-center items-center transition-all duration-800 ease-in-out z-20`}
     >
       <nav>
         <ul
