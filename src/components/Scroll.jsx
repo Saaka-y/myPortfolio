@@ -24,7 +24,7 @@ export function Section({ id, children }) {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.6 }} // amount: 発火位置
+        viewport={{ once: true, amount: 0.4 }} // amount: 発火位置
         className={`flex flex-col gap-3 justify-center items-center text-center border py-12`}>
         <p className="capitalize pb-2">{id}</p>
         <div className="flex flex-col gap-2">
