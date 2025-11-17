@@ -30,4 +30,24 @@ body {
   background: var(--background);
   color: var(--foreground);
   letter-spacing: 1px;
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+@media (min-width: 768px) {
+
+  body {
+    padding-top: 160px;
+    padding-bottom: 160px;
+  }
+
+}
+
+@media (min-width: 1024) {
+
+  body {
+    padding-top: 180px;
+    padding-bottom: 180px;
+  }
+
 }
