@@ -13,7 +13,7 @@ export function Header({ isShrunk, setIsShrunk }) {
     <div
       className={`
         ${isShrunk
-          ? "h-20 md:h-30 md:justify-end md:items-end bg-gray-700/70"
+          ? "h-20 md:h-25 md:justify-end md:items-end bg-gray-700/70"
           : "h-screen bg-gray-700/40"
         } fixed top-0 w-full flex justify-center items-center transition-all duration-1000 ease-in-out z-20`}
     >
@@ -28,7 +28,7 @@ export function Header({ isShrunk, setIsShrunk }) {
             to="about"
             smooth={!isShrunk ? "easeInOutQuint" : "easeOutQuint"}
             duration={!isShrunk ? 1300 : 300}
-            offset={-160}
+            offset={-140}
             className="cursor-pointer"
             onClick={handleNavClick}
           >
@@ -38,7 +38,7 @@ export function Header({ isShrunk, setIsShrunk }) {
             to="works"
             smooth={!isShrunk ? "easeInOutQuint" : "easeOutQuint"}
             duration={!isShrunk ? 1300 : 300}
-            offset={-160}
+            offset={-140}
             className="cursor-pointer"
             onClick={handleNavClick}
 
@@ -48,7 +48,7 @@ export function Header({ isShrunk, setIsShrunk }) {
             to="skills"
             smooth={!isShrunk ? "easeInOutQuint" : "easeOutQuint"}
             duration={!isShrunk ? 1300 : 300}
-            offset={-160}
+            offset={-140}
             className="cursor-pointer"
             onClick={handleNavClick}
 
@@ -59,7 +59,7 @@ export function Header({ isShrunk, setIsShrunk }) {
             to="contact"
             smooth={!isShrunk ? "easeInOutQuint" : "easeOutQuint"}
             duration={!isShrunk ? 1300 : 300}
-            offset={-160}
+            offset={-140}
             className="cursor-pointer"
             onClick={handleNavClick}
 
