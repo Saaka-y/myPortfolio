@@ -22,7 +22,7 @@ export default function Home() {
       />
 
       <div className={`
-        flex flex-col gap-12
+        flex flex-col gap-12 md:gap-20
         transition-all duration-1500
         ${!isShrunk ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"}
       `}>

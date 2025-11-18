@@ -21,7 +21,7 @@ export function Skills() {
 
 
   return (
-    <motion.div variants={childVariants} className="grid grid-cols-3 gap-4 md:flex md:justify-center md:gap-6 lg:gap-10">
+    <motion.div variants={childVariants} className="grid grid-cols-3 gap-x-2 gap-y-6 md:flex md:justify-center md:gap-6 lg:gap-12">
       {skills.map(skill => {
         const Icon = skill.icon;
         return (
