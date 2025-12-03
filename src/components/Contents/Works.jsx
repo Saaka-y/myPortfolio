@@ -99,6 +99,19 @@ export function Works() {
                 );
             \`\`\``
         },
+      ],
+      errors: [
+        {
+          point: "DatePickerで選んだ日付が'Invalid Date'と表示される",
+          description: "Taskのdateを保存する値を文字列とオブジェクトで混合してしまいバグが起きた",
+          solution: "DatePickerにはstate管理したDateオブジェクトを、Taskオブジェクトには文字列化した日付を保存するようにした",
+        }
+      ],
+      futurePlans: [
+        {
+          point: "DBを追加し、ログインを可能にする",
+          point: "DBを追加し、ログインを可能にする",
+        }
       ]
     },
 
@@ -118,55 +131,109 @@ export function Works() {
   }
 
   return (
-    <>
-      <motion.div variants={childVariants} className="w-30 h-30 bg-amber-400" onClick={() => handleOpenModal(works[0])}>
-      </motion.div>
-      <motion.div variants={childVariants} className="w-30 h-30 bg-amber-400" onClick={() => handleOpenModal(works[0])}></motion.div>
+    <div className='md:flex'>
+      <>
+        {works.map((work, idx) => (
+          <div key={idx} className="w-full md:w-1/2 p-6">
+            <motion.div
+              variants={childVariants}
+              className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:scale-105 transition-transform"
+            >
+              <Image
+                src={work.img}
+                alt={work.title}
+                width={400}
+                height={250}
+                className="object-cover w-full h-48"
+              />
+              <div className="p-4">
+                <h3 className="text-xl font-semibold mb-2">{work.title}</h3>
+                <p className="text-sm text-gray-600 mb-2">{work.explanation}</p>
+                <button
+                  className="text-blue-500 hover:underline"
+                  onClick={() => handleOpenModal(work)}
+                >
+                  詳細を見る
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        ))}
+      </>
+
 
       <ReactModal
         isOpen={isOpen}
-        style={{
-          overlay: {
-            backgroundColor: "grey"
-          }
-        }}
-
+        onRequestClose={handleCloseModal}
+        overlayClassName="fixed inset-0 bg-black/50 z-50" // 背景の半透明
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[80%] bg-white p-6 rounded-xl shadow-lg z-50 outline-none overflow-y-auto"
       >
-        <div>
-          <button onClick={handleCloseModal}>× Close</button>
-          <p className='text-center text-2xl mb-4'>{selectedWork?.title}</p>
-          <p className='text-center'>{selectedWork?.explanation}</p>
-          <Image src="/face.jpg" alt="Work image" width={500} height={300} />
-        </div>
+        <button onClick={handleCloseModal} className="float-right text-xl">×</button>
+        <h2 className="text-2xl text-center font-bold mb-2">{selectedWork?.title}</h2>
+        <Image src={selectedWork?.img} alt={selectedWork?.title} width={500} height={300} className="rounded mb-4" />
+        <p className="mb-4">{selectedWork?.explanation}</p>
 
-        <div className='border mt-4'>
-          {selectedWork?.functionalities?.length > 0 ? (
-            <>
-              <p className={styles.contentTitle}>機能</p>
-              <ul>
-                {selectedWork.functionalities.map((func, idx) => (
-                  <li key={idx}>
-                    {func}
-                  </li>
-                ))}
-              </ul></>
-          ) : null}
+        {selectedWork?.functionalities?.length > 0 && (
+          <details className="mb-4 p-2 border rounded">
+            <summary className="font-semibold cursor-pointer">機能</summary>
+            <ul className="list-disc pl-5 mt-2">
+              {selectedWork.functionalities.map((func, idx) => (
+                <li key={idx}>{func}</li>
+              ))}
+            </ul>
+          </details>
+        )}
 
-          {selectedWork?.features?.map((feature, idx) => (
-            <div key={idx}>
-              <p className={styles.contentTitle}>工夫したところ<span className='text-2xl'>{idx + 1}</span></p>
-              <p>{feature.point}</p>
-              <p className={styles.contentTitle}>理由</p>
-              <p>{feature.reason}</p>
-              {feature.code && (
-                <pre className="bg-gray-800 text-white p-2 rounded overflow-x-auto">
-                  {feature.code.replace(/```jsx/g, "").replace(/```/g, "")}
-                </pre>
-              )}
+        {selectedWork?.features?.length > 0 && (
+          <details className="mb-4 p-2 border rounded">
+            <summary className="font-semibold cursor-pointer">工夫したところ</summary>
+            <div className="mt-2">
+              {selectedWork.features.map((feature, idx) => (
+                <div key={idx} className="mb-2">
+                  <p className="font-semibold">{feature.point}</p>
+                  <p className="text-gray-500">{feature.reason}</p>
+                  {feature.code && (
+                    <pre className="bg-gray-800 text-white p-2 rounded overflow-x-auto">
+                      {feature.code.replace(/```jsx/g, "").replace(/```/g, "")}
+                    </pre>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </details>
+        )}
+
+        {selectedWork?.errors?.length > 0 && (
+          <details className="mb-4 p-2 border rounded">
+            <summary className="font-semibold cursor-pointer">エラーと解決法</summary>
+            <p className="mt-2">
+              {selectedWork.errors.map((error, idx) => (
+                <div key={idx} className="mb-2">
+                  <p className="font-semibold">{error.point}</p>
+                  <p className="text-gray-500">{error.description}</p>
+                  <p className="text-gray-500 bg-amber-300">{error.solution}</p>
+                </div>
+              ))}
+
+            </p>
+          </details>
+        )}
+
+        {selectedWork?.futurePlans?.length > 0 && (
+          <details className="mb-4 p-2 border rounded">
+            <summary className="font-semibold cursor-pointer">今後の改善予定</summary>
+            <p className="mt-2">
+
+              <ul className="list-disc pl-5 mt-2">
+                {selectedWork.futurePlans.map((plan, idx) => (
+                  <li key={idx}>{plan.point}</li>
+                ))}
+              </ul>
+            </p>
+          </details>
+        )}
+
       </ReactModal >
-    </>
+    </div>
   );
 }

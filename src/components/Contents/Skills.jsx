@@ -22,11 +22,14 @@ export function Skills() {
 
   return (
     <motion.div variants={childVariants} className="grid grid-cols-3 gap-x-2 gap-y-6 md:flex md:justify-center md:gap-6 lg:gap-12">
-      {skills.map(skill => {
+      {skills.map((skill, idx) => {
         const Icon = skill.icon;
         return (
           // eslint-disable-next-line react/jsx-key
-          <div className="flex flex-col items-center gap-2 hover:scale-[1.2] transition-transform duration-300">
+          <div 
+            key={idx}
+            className="flex flex-col items-center gap-2 hover:scale-[1.2] transition-transform duration-300"
+          >
             <Icon size={24} className='w-10 h-10 text-[#2e2e2b]' />
             <p>{skill.title}</p>
           </div>
